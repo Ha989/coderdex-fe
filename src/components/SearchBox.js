@@ -55,8 +55,8 @@ const defaultValues = {
 };
 
 export const SearchBox = () => {
-
-    const methods = useForm(defaultValues);
+    
+    const methods = useForm({defaultValues});
     const {
         handleSubmit,
     } = methods;

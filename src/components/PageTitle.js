@@ -14,7 +14,7 @@ const styles = {
 export const PageTitle = () => {
     return (
         <Container maxWidth="lg" sx={styles.container}>
-            <Box container maxWidth="md" sx={{ margin: "auto!important", paddingX: "2rem", paddingY: "1rem", backgroundColor: "white" }}>
+            <Box maxWidth="md" sx={{ margin: "auto!important", paddingX: "2rem", paddingY: "1rem", backgroundColor: "white" }}>
                 <Typography variant="h4" color="gray">Pokédex</Typography>
             </Box>
         </Container>

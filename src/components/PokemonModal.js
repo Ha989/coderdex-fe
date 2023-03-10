@@ -25,14 +25,14 @@ const style = {
 const defaultValues = {
     name: '',
     id: '',
-    url: '',
+    imageLink: '',
     type1: '',
     type2: '',
 };
 
 export default function PokemonModal({ open, setOpen }) {
     const navigate = useNavigate()
-    const methods = useForm(defaultValues);
+    const methods = useForm({defaultValues});
     const {
         handleSubmit,
         formState: { isSubmitting },
@@ -40,8 +40,9 @@ export default function PokemonModal({ open, setOpen }) {
     const dispatch = useDispatch();
 
     const onSubmit = (data) => {
-        const { name, id, url, type1, type2 } = data
-        dispatch(addPokemon({ name, id, imgUrl: url, types: [type1, type2] }))
+        const { name, id, imageLink, type1, type2 } = data
+        console.log('data', data)
+        dispatch(addPokemon({ name, id, imageLink, types: [type1, type2] }))
         navigate(`/pokemons/${id}`)
     };
 
@@ -78,7 +79,7 @@ export default function PokemonModal({ open, setOpen }) {
                                 }}
                             />
                             <FTextField
-                                name="url"
+                                name="imageLink"
                                 fullWidth
                                 // rows={4}
                                 placeholder="Image Url"

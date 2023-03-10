@@ -5,18 +5,10 @@ import { POKEMONS_PER_PAGE } from '../../app/config';
 export const getPokemons = createAsyncThunk('pokemons/getPokemons', async ({ page, search, type }, { rejectWithValue }) => {
     try {
         let url = `/pokemons?page=${page}&limit=${POKEMONS_PER_PAGE}`;
-        if (search) url += `&search=${search}`;
+        if (search) url += `&search=${search}`; 
         if (type) url += `&type=${type}`;
-        const response = await apiService.get(url);
-        const timeout = () => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve('ok');
-                }, 1000);
-            });
-        };
-        await timeout();
-        return response.data;
+        const response = await apiService.get(url); 
+        return response; 
     } catch (error) {
         return rejectWithValue(error);
     }
@@ -26,8 +18,8 @@ export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async 
     try {
         let url = `/pokemons/${id}`;
         const response = await apiService.get(url);
-        if (!response.data) return rejectWithValue({ message: 'No data' });
-        return response.data;
+        if (!response) return rejectWithValue({ message: 'No data' });
+        return response;
     } catch (error) {
         return rejectWithValue(error);
     }
@@ -35,21 +27,21 @@ export const getPokemonById = createAsyncThunk('pokemons/getPokemonById', async 
 
 export const addPokemon = createAsyncThunk(
     'pokemons/addPokemon',
-    async ({ name, id, imgUrl, types }, { rejectWithValue }) => {
+    async ({ name, id, imageLink, types }, { rejectWithValue }) => {
         try {
             let url = '/pokemons';
-            await apiService.post(url, { name, id, url: imgUrl, types });
-            return
+            const data = await apiService.post(url, { name, id, imageLink: imageLink, types });
+            return data
         } catch (error) {
             return rejectWithValue(error)
         }
     }
 )
 
-export const editPokemon = createAsyncThunk('pokemons/editPokemon', async ({ name, id, url, types }, { rejectWithValue }) => {
+export const editPokemon = createAsyncThunk('pokemons/editPokemon', async ({ name, id, imageLink, types }, { rejectWithValue }) => {
     try {
         let url = `/pokemons/${id}`;
-        await apiService.put(url, { name, url, types });
+        await apiService.put(url, { name, imageLink, types });
         return;
     } catch (error) {
         return rejectWithValue(error);
@@ -92,7 +84,7 @@ export const pokemonSlice = createSlice({
         typeQuery: (state, action) => {
             state.type = action.payload;
         },
-        searchQuery: (state, action) => {
+        searchQuery: (state, action) => { 
             state.search = action.payload;
         },
     },
@@ -120,11 +112,13 @@ export const pokemonSlice = createSlice({
         },
         [getPokemons.fulfilled]: (state, action) => {
             state.loading = false;
-            const { search, type } = state;
+            const { search, type } = state; 
+            console.log(action)
             if ((search || type) && state.page === 1) {
-                state.pokemons = action.payload;
+                state.pokemons = action.payload; 
             } else {
-                state.pokemons = [...state.pokemons, ...action.payload];
+                state.pokemons = [...state.pokemons, ...action.payload]; 
+                
             }
         },
         [getPokemonById.fulfilled]: (state, action) => {

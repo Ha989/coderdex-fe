@@ -11,10 +11,10 @@ function MainLayout() {
     const handleOpen = () => setOpen(true);
     return (
         <Stack sx={{ minHeight: "100vh" }}>
-            <MainHeader />
-            <Outlet />
-            <Box sx={{ flexGrow: 1 }} />
-            <MainFooter />
+            <MainHeader /> 
+            <Outlet /> 
+            <Box sx={{ flexGrow: 1 }} /> 
+            <MainFooter /> 
             <PokemonModal open={open} setOpen={setOpen} />
             <Box sx={{
                 position: "fixed",

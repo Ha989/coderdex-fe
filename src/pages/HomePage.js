@@ -14,7 +14,7 @@ export const HomePage = () => {
 	return (
 		<>
 			<PageTitle title="Pokedex" />
-			<SearchBox />
+			<SearchBox /> 
 			<PokeList />
 		</>
 	);
